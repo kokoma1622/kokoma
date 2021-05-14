@@ -1,49 +1,52 @@
 import pymysql
-from openpyxl import Workbook
-from openpyxl import load_workbook
-from sqlalchemy import create_engine
 import sqlalchemy
 import requests
 import pandas as pd
-import numpy as np
 import time
+from sqlalchemy import create_engine
+
+from get_match_info import match_info
+from get_personal import personal
+from get_team import team
+from get_event import events
 
 
-api_list = ['RGAPI-c1efc91d-54e9-47b7-9034-ca245fde730a',
-            'RGAPI-52fb77af-2b17-4396-9a16-74deafe3bd69',
-            'RGAPI-bbf0510b-8583-4d62-8b76-7e4342044f1c',
-            'RGAPI-37558a4e-f0f2-4e6e-a851-ff0f7584ec90',
-            'RGAPI-05434be6-979e-453f-9b7b-7f089b16d226',
-            'RGAPI-36280109-2559-4256-a634-11478300544c',
-            'RGAPI-f0cdee50-5c8e-43bf-b2d1-b04efa46515e',
-            'RGAPI-0605ec83-ebf5-4cbf-ac6e-327af5bcd678',
-            'RGAPI-e0a608b9-c004-4ea2-b706-47dba0129e38',
-            'RGAPI-c7ec745c-fe72-42fc-bc68-8debf5d52809',
-            'RGAPI-d8af4e55-f0b4-453f-a538-fefc544e5d7f',
-            'RGAPI-805aa6fc-5b31-4836-9582-47821742c1d5',
-            'RGAPI-4c10a087-ad1a-4ba1-9f44-6611667231f5',
-            'RGAPI-c3773ecb-ade0-4fea-8337-aab17fa331b1',
-            'RGAPI-b814dc8d-2553-471d-bd32-dcfc51b50353']
-#            'RGAPI-d0adf80f-be56-400e-9fd7-890bbf4bb7d6']
+api_list = ['RGAPI-610980a2-bb8b-4185-a962-62c7b9ad8aed',    # apikokoma
+            'RGAPI-82e7a5c2-1864-41e5-9c11-223551a677db',    # api2kokoma
+            'RGAPI-e7e59cc9-868b-4dbb-9935-641782349cf0',    # api3kokoma
+            'RGAPI-20bc0b1c-ba3e-4e44-9875-b4dd4f452e93',    # api4kokoma
+            'RGAPI-611405f0-d542-46b6-9e79-05a25628d7c1',    # youngcheol94
+            'RGAPI-02fcfc04-200e-4447-89f5-dd721078f455',    # kjwk9900
+            'RGAPI-b339aa3d-0daf-4e91-ab98-48a1ad7e8c67',    # dhyung2002
+            'RGAPI-03a61882-c938-4f2f-8f91-5ac6b17fb762',    # skdlsco2
+            'RGAPI-58563741-48d7-473f-a78a-667ff499afc9',    # noraworld
+            'RGAPI-4f69a3e5-fb7f-4e28-bedc-1a3e0a78dc47',    # tyaaan93
+            'RGAPI-03ffa5a9-5d13-46fd-a6c6-dc845cfa1f96',    # marnitto89
+            'RGAPI-fe9c32d0-a76e-487d-b450-616295b9ff51',    # dh3354
+            'RGAPI-4013dc50-7b14-44be-8638-e85460c1231f',    # dh33543354
+            'RGAPI-d405d601-5596-4c7d-9520-45c7d23d7bed',    # resberg13
+            'RGAPI-806c06e6-30a4-4416-8e7f-1eecfe9cf549',    # jyy3151
+            'RGAPI-af1e81b2-9a2b-4195-b104-de0e8e001220']    # archve9307
 
+api_dict = {'apikokoma':    'RGAPI-610980a2-bb8b-4185-a962-62c7b9ad8aed',
+            'api2kokoma':   'RGAPI-82e7a5c2-1864-41e5-9c11-223551a677db',
+            'api3kokoma':   'RGAPI-e7e59cc9-868b-4dbb-9935-641782349cf0',
+            'api4kokoma':   'RGAPI-20bc0b1c-ba3e-4e44-9875-b4dd4f452e93',
+            'youngcheol94': 'RGAPI-611405f0-d542-46b6-9e79-05a25628d7c1',
+            'kjwk9900':     'RGAPI-02fcfc04-200e-4447-89f5-dd721078f455',
+            'dhyung2002':   'RGAPI-b339aa3d-0daf-4e91-ab98-48a1ad7e8c67',
+            'skdlsco2':     'RGAPI-03a61882-c938-4f2f-8f91-5ac6b17fb762',
+            'noraworld':    'RGAPI-58563741-48d7-473f-a78a-667ff499afc9',
+            'tyaaan93':     'RGAPI-4f69a3e5-fb7f-4e28-bedc-1a3e0a78dc47',
+            'marnitto89':   'RGAPI-03ffa5a9-5d13-46fd-a6c6-dc845cfa1f96',
+            'dh3354':       'RGAPI-fe9c32d0-a76e-487d-b450-616295b9ff51',
+            'dh33543354':   'RGAPI-4013dc50-7b14-44be-8638-e85460c1231f',
+            'resberg13':    'RGAPI-d405d601-5596-4c7d-9520-45c7d23d7bed',
+            'jyy3151':      'RGAPI-806c06e6-30a4-4416-8e7f-1eecfe9cf549',
+            'archve9307':   'RGAPI-af1e81b2-9a2b-4195-b104-de0e8e001220'}
 
-api_dict = {'apikokoma':    'RGAPI-c1efc91d-54e9-47b7-9034-ca245fde730a',
-            'api2kokoma':   'RGAPI-52fb77af-2b17-4396-9a16-74deafe3bd69',
-            'api3kokoma':   'RGAPI-bbf0510b-8583-4d62-8b76-7e4342044f1c',
-            'api4kokoma':   'RGAPI-37558a4e-f0f2-4e6e-a851-ff0f7584ec90',
-            'youngcheol94': 'RGAPI-05434be6-979e-453f-9b7b-7f089b16d226',
-            'kjwk9900':     'RGAPI-36280109-2559-4256-a634-11478300544c',
-            'dhyung2002':   'RGAPI-f0cdee50-5c8e-43bf-b2d1-b04efa46515e',
-            'skdlsco2':     'RGAPI-0605ec83-ebf5-4cbf-ac6e-327af5bcd678',
-            'noraworld':    'RGAPI-e0a608b9-c004-4ea2-b706-47dba0129e38',
-            'tyaaan93':     'RGAPI-c7ec745c-fe72-42fc-bc68-8debf5d52809',
-            'marnitto89':   'RGAPI-d8af4e55-f0b4-453f-a538-fefc544e5d7f',
-            'dh3354':       'RGAPI-805aa6fc-5b31-4836-9582-47821742c1d5',
-            'dh33543354':   'RGAPI-4c10a087-ad1a-4ba1-9f44-6611667231f5',
-            'resberg13':    'RGAPI-c3773ecb-ade0-4fea-8337-aab17fa331b1',
-            'jyy3151':      'RGAPI-b814dc8d-2553-471d-bd32-dcfc51b50353'}
-#            'archve9307': 'RGAPI-d0adf80f-be56-400e-9fd7-890bbf4bb7d6}
-
+api_name = ['apikokoma', 'api2kokoma', 'api3kokoma', 'api4kokoma', 'youngcheol94', 'kjwk9900', 'dhyung2002', 'skdlsco2',
+            'noraworld', 'tyaaan93', 'marnitto89', 'dh3354', 'dh33543354', 'resberg13', 'jyy3151', 'archve9307']
 
 
 def request_url(url):
@@ -54,101 +57,171 @@ def request_url(url):
             return r.json()
         elif r.status_code == 403: # api 갱신 필요
             print('you need api renewal')
-            print(api)
+            print(url)
             return r.json()
+        
+        time.sleep(5)
+        print('5 seconds sleep!')
 
 
 
 def main():
+
+    summoner_dict = {}
+    
+    for api in api_name:
+        summoner_dict[api] = pd.read_csv('summoner_api/'+api+'.csv')
+    
+    summonername_df = summoner_dict[api]['summonerName']
+    
+    
+    
     engine = create_engine('mysql+pymysql://kokoma:'+'qkr741963'
-                           +'@challenger-match-event.cq82nctrk585.ap-northeast-2.rds.amazonaws.com:3306/matches',
+                           +'@challenger-match-event.cq82nctrk585.ap-northeast-2.rds.amazonaws.com:3306/match_data',
                            echo=False)
     conn = engine.connect()
-
-    api_key = 'RGAPI-8c43a3cd-c38f-4aa5-8846-4cda990f653b'
-
-    tier_to_point = {'IRON':0, 'BRONZE':4, 'SILVER':8, 'GOLD':12, 'PLATINUM':16, 'DIAMOND':20, 'MASTER':23, 'GRANDMASTER':25, 'CHALLENGER':27}
-    rank_to_point = {'IV':0, 'III':1, 'II':2, 'I':3}
     
-    point_to_tier_under_m = {0:'IRON', 1:'BRONZE', 2:'SILVER', 3:'GOLD', 4:'PLATINUM', 5:'DIAMOND'}
-    point_to_rank = {0:' IV', 1:' III', 2:' II', 3:' I'}
-    point_to_tier_over_m = {0:'DIAMOND I', 1:'MASTER', 2:'GRANDMASTER', 3:'CHALLENGER'}
+    match_already_in_tuple = engine.execute('SELECT gameId FROM match_id').fetchall()
+    match_already_in = [gameId_tuple[0] for gameId_tuple in match_already_in_tuple]
+    personal_already_in_tuple = engine.execute('SELECT gameId FROM personal_summary GROUP BY gameId').fetchall()
+    personal_already_in = [gameId_tuple[0] for gameId_tuple in personal_already_in_tuple]
+    team_already_in_tuple = engine.execute('SELECT gameId FROM team_summary GROUP BY gameId').fetchall()
+    team_already_in = [gameId_tuple[0] for gameId_tuple in team_already_in_tuple]
+    event_already_in_tuple = engine.execute('SELECT gameId FROM event_monster GROUP BY gameId').fetchall()
+    event_already_in = [gameId_tuple[0] for gameId_tuple in event_already_in_tuple]
     
-    
-    matchid_df = pd.read_csv('c_matchid.csv')
-    
-    gameid_already_in_tuple = engine.execute('SELECT gameId FROM match_id GROUP BY gameId').fetchall()
-    gameid_already_in = [gameId_tuple[0] for gameId_tuple in gameid_already_in_tuple]
-    
-    
-    i = 0
-    for j in range(53000, 68600):
-        now_matchid = str(matchid_df.iloc[j]['gameId'].item())
-        
-        if now_matchid in gameid_already_in:
-            print(now_matchid + ' already in')
-            continue
+    l = 0
+    for i in range(25, 1401):
+
+        begin_index = 0
+
+        while True:
+            match_url = 'https://kr.api.riotgames.com/lol/match/v4/matchlists/by-account/' + summoner_dict[api_name[l]]['accountId'][i]
+            match_url += '?queue=420&beginIndex=' + str(begin_index) + '&api_key=' + api_list[l]
+            match_json = request_url(match_url)
+
+            matchid_list = pd.DataFrame(match_json['matches'])
+            will_break = 0
+            if len(matchid_list) == 0:
+                break
+            elif matchid_list.iloc[-1]['gameId'] < 4071405708:
+                matchid_list = matchid_list[matchid_list['gameId'] > 4071405708]
+                will_break = 1
+
+                        
+            gameid_df = matchid_list['gameId']
+            match_df = pd.DataFrame(columns=['gameId'])
+            personal_df_list = [pd.DataFrame(columns=['gameId'])] * 3
+            team_df = pd.DataFrame(columns=['gameId'])
+            event_df_list = [pd.DataFrame(columns=['gameId'])] * 6
+
+            for j in range(len(gameid_df)):
+                now_matchid = gameid_df[j].item()
+
+                already_in = [0, 0, 0, 0]
+                if now_matchid in match_already_in:
+                    already_in[0] = 1
+                if now_matchid in personal_already_in:
+                    already_in[1] = 1
+                if now_matchid in event_already_in:
+                    already_in[2] = 1
+                if now_matchid in team_already_in:
+                    already_in[3] = 1
 
 
-        data_url = 'https://kr.api.riotgames.com/lol/match/v4/matches/' + now_matchid + '?api_key=' + str(api_list[i])
-        data_json = request_url(data_url)
+                if sum(already_in) < 4:
+                    data_url = 'https://kr.api.riotgames.com/lol/match/v4/matches/' + str(now_matchid) + '?api_key=' + api_list[l]
+                    data_json = request_url(data_url)
+                    match = pd.DataFrame(list(data_json.values()), index=list(data_json.keys())).T
 
-        match = pd.DataFrame(list(data_json.values()), index=list(data_json.keys())).T
-        summoner_ids = pd.DataFrame(dict(pd.DataFrame(match['participantIdentities'].iloc[0])['player'])).T['summonerId']
-        season = match['gameVersion'].item().split('.')[0]
-        version = match['gameVersion'].item().split('.')[1]
+                    time_url = 'https://kr.api.riotgames.com/lol/match/v4/timelines/by-match/' + str(now_matchid) + '?api_key=' + api_list[l]
+                    time_json = request_url(time_url)
+                    frame = pd.DataFrame(time_json['frames'])['participantFrames']
+                    event = pd.DataFrame(time_json['frames'])['events']
 
 
-        point_sum = 0
-        ranked_count = 0
-        for k in range(10):
-            summoner_url = 'https://kr.api.riotgames.com/lol/league/v4/entries/by-summoner/' + summoner_ids.iloc[k] + '?api_key=' + str(api_list[i])
-            summoner_json = request_url(summoner_url)
-            summoner_df = pd.DataFrame(summoner_json)
+                    if already_in[0] == 0:
+                        summoner_ids = pd.DataFrame(dict(pd.DataFrame(match['participantIdentities'].iloc[0])['player'])).T['summonerId']
+                        summoner_list = []
+                        for k in range(10):
+                            summoner_url = 'https://kr.api.riotgames.com/lol/league/v4/entries/by-summoner/' + summoner_ids.iloc[k] 
+                            summoner_url += '?api_key=' + api_list[l]
+                            summoner_list.append(pd.DataFrame(request_url(summoner_url)))
 
-            if len(summoner_df) == 0: # unranked
-                continue
+                        new_match_df = match_info(match, summoner_list)
+                        match_df = match_df.append(new_match_df)
 
-            if 'RANKED_SOLO_5x5' not in list(summoner_df['queueType']): # solo unranked
-                continue
+                    if already_in[1] == 0:
+                        new_personal_df_list = personal(match, frame)       
+                        for k in range(3):
+                            personal_df_list[k] = personal_df_list[k].append(new_personal_df_list[k])
 
-            summoner_rank_df = summoner_df[summoner_df['queueType']=='RANKED_SOLO_5x5']
-            tier = summoner_rank_df['tier'].item()
-            rank = summoner_rank_df['rank'].item()
+                    if already_in[2] == 0:
+                        new_event_df_list = events(event)
+                        for k in range(6):
+                            new_event_df_list[k]['gameId'] = int(now_matchid)
+                            event_df_list[k] = event_df_list[k].append(new_event_df_list[k])
 
-            point = tier_to_point[tier] + rank_to_point[rank]
-            ranked_count += 1
-            if tier == 'DIAMOND' and rank == 'I':
-                point += 1
-            point_sum += point
+                    if already_in[3] == 0:
+                        new_team_df = team(match, new_event_df_list[5])
+                        team_df = team_df.append(new_team_df)
 
-        if ranked_count == 0:
-            tier = 'UNRANKED'
-        else:
-            point_average = point_sum/ranked_count
-            if point_average//4 < 6:
-                point_under_m = round(point_average) // 4
-                if point_under_m == 6:
-                    tier = 'DIAMOND I'
+                    print(i, now_matchid, 'data in!')
+
                 else:
-                    rank_under_m = round(point_average) % 4
-                    tier = point_to_tier_under_m[point_under_m] + point_to_rank[rank_under_m]
-            else:
-                point_over_m = round((point_average-24)/2)
-                tier = point_to_tier_over_m[point_over_m]
+                    print(i, now_matchid, 'passed!')
 
-        match_dict = {'gameId':now_matchid, 'season':season, 'version':version, 'averageTier':tier}
-        match_df = pd.DataFrame(match_dict, index=[0])
-        match_df.to_sql('match_id', con=engine, index=False, if_exists='append')
 
-        print(now_matchid + ' matchid in')
+                l += 1
+                if l == 8:
+                    l = 0    
+            
+            match_already_in_tuple = engine.execute('SELECT gameId FROM match_id').fetchall()
+            match_already_in = [gameId_tuple[0] for gameId_tuple in match_already_in_tuple]
+            match_df = match_df[~match_df['gameId'].isin(match_already_in)]
+            match_df.to_sql('match_id', con=engine, index=False, if_exists='append')
+            
+            personal_already_in_tuple = engine.execute('SELECT gameId FROM personal_summary GROUP BY gameId').fetchall()
+            personal_already_in = [gameId_tuple[0] for gameId_tuple in personal_already_in_tuple]
+            for k in range(3):
+                personal_df_list[k] = personal_df_list[k][~personal_df_list[k]['gameId'].isin(personal_already_in)]
+            personal_df_list[0].to_sql('personal_summary', con=engine, index=False, if_exists='append')
+            personal_df_list[1].to_sql('personal_rune', con=engine, index=False, if_exists='append')
+            personal_df_list[2].to_sql('personal_detail', con=engine, index=False, if_exists='append') 
+            
+            event_already_in_tuple = engine.execute('SELECT gameId FROM event_monster GROUP BY gameId').fetchall()
+            event_already_in = [gameId_tuple[0] for gameId_tuple in event_already_in_tuple]
+            for k in range(6):
+                event_df_list[k] = event_df_list[k][~event_df_list[k]['gameId'].isin(event_already_in)]
+            event_df_list[0].to_sql('event_kill', con=engine, index=False, if_exists='append')
+            event_df_list[1].to_sql('event_ward', con=engine, index=False, if_exists='append')
+            event_df_list[2].to_sql('event_item', con=engine, index=False, if_exists='append')
+            event_df_list[3].to_sql('event_skillup', con=engine, index=False, if_exists='append')
+            event_df_list[4].to_sql('event_building', con=engine, index=False, if_exists='append')
+            event_df_list[5].to_sql('event_monster', con=engine, index=False, if_exists='append')   
+            
+            team_already_in_tuple = engine.execute('SELECT gameId FROM team_summary GROUP BY gameId').fetchall()
+            team_already_in = [gameId_tuple[0] for gameId_tuple in team_already_in_tuple]
+            team_df = team_df[~team_df['gameId'].isin(team_already_in)]
+            team_df.to_sql('team_summary', con=engine, index=False, if_exists='append')  
+              
+                               
+            
+            print(i, 'th database uploaded!\n')
+            
+            if will_break == 1:
+                break        
+            begin_index += 100
+
+    
+        print()
+        print(i, 'th database upload completed!\n')
         
-        i += 1
-        if i == 7:
-            i = 0
-            
-            
+        
     conn.close()
+    engine.dispose()
+    
+    
     
 if __name__ == "__main__":
     main()
