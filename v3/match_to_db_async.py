@@ -13,70 +13,10 @@ from get_team import team
 from get_event import events
 
 
-api_list = ['RGAPI-6fc98a4e-a907-45b6-a97f-74961b0d694d',    # apikokoma
-            'RGAPI-e8ec561c-0bc4-4942-997e-f0eb983436b1',    # api2kokoma
-            'RGAPI-85a8f145-31e4-4218-ab5d-c2b69b4451b4',    # api3kokoma
-            'RGAPI-47ab6f0f-3ec2-4bfe-9102-d4c2a6f65574',    # api4kokokma
-            'RGAPI-db87dec6-cd1a-46ba-bf61-9bb85bd9c35d',    # youngcheol94
-            'RGAPI-bd2847a7-5d8b-43cd-9a96-ba1d42e5072d',    # kjwk9900
-            'RGAPI-07295010-d0e1-4638-99ae-376cff56e844',    # dhyung2002
-            'RGAPI-0626d2f3-dcd9-4bb4-8826-1678cadfe11e',    # skdlsco2
-            'RGAPI-96c51099-98c6-4588-bc3c-b19460fb3dab',    # noraworld
-            'RGAPI-efb47261-3052-4ba2-a1d5-8c4a3ad41acf',    # tyaaan93
-            'RGAPI-0714096a-3013-4752-8b15-37294c3d29b6',    # marnitto89
-            'RGAPI-33ee7574-bb2e-431a-8fc9-4e76a792980d',    # dh3354
-            'RGAPI-464e023e-40d1-4033-9c84-c845bb8780c2',    # dh33543354
-            'RGAPI-dfc10fbf-271c-4c7e-b22a-8d6da374105b',    # resberg13
-            'RGAPI-66740060-5c24-47fc-9a03-da4d5639d271',    # jyy3151
-            'RGAPI-09c2433e-f0c0-4849-ac4e-80eccb35fb8d',    # archve9307
-            'RGAPI-6c698b4c-caa0-4017-9f25-0eaa3b1692fa',    # tipho123
-            'RGAPI-5b9610d5-998d-4e1f-b20f-dcc1e5f6cf95',    # tipho1234
-            'RGAPI-798ff1e2-ab62-44c4-9d67-db911580a8f0',    # tipho112
-            'RGAPI-9c0731b4-0ef7-4bee-bf18-a99496e808b6',    # tipho26
-            'RGAPI-44d25342-ee50-42a4-891b-4aeafbc4d831',    # jskim9310
-            'RGAPI-45a32929-f18d-4d87-9121-a582323ed35d',    # rlatkddlf8
-            'RGAPI-1bf745d7-f2d5-4362-8495-84a523e42005',    # ldh123a
-            'RGAPI-bc6bb3bf-e998-4c6f-a1b7-66b575f9bf13',    # meelmyeon
-            'RGAPI-868614d6-2348-4c75-9557-94cd6afaaa23',    # dbseorms2446
-            'RGAPI-cef9564e-34a3-4565-be62-ead720449fc8',    # dayever22
-            'RGAPI-02f25c80-9dac-467f-be49-9496cdd36150',    # bluozlz
-            'RGAPI-0259a7aa-cc61-4d88-8c00-e0fc61ed1f9f']    # kokoma1622
-
-api_dict = {'apikokoma'    : 'RGAPI-6fc98a4e-a907-45b6-a97f-74961b0d694d',
-            'api2kokoma'   : 'RGAPI-e8ec561c-0bc4-4942-997e-f0eb983436b1',
-            'api3kokoma'   : 'RGAPI-85a8f145-31e4-4218-ab5d-c2b69b4451b4',
-            'api4kokokma'  : 'RGAPI-47ab6f0f-3ec2-4bfe-9102-d4c2a6f65574',
-            'youngcheol94' : 'RGAPI-db87dec6-cd1a-46ba-bf61-9bb85bd9c35d',
-            'kjwk9900'     : 'RGAPI-bd2847a7-5d8b-43cd-9a96-ba1d42e5072d',
-            'dhyung2002'   : 'RGAPI-07295010-d0e1-4638-99ae-376cff56e844',
-            'skdlsco2'     : 'RGAPI-0626d2f3-dcd9-4bb4-8826-1678cadfe11e',
-            'noraworld'    : 'RGAPI-96c51099-98c6-4588-bc3c-b19460fb3dab',
-            'tyaaan93'     : 'RGAPI-efb47261-3052-4ba2-a1d5-8c4a3ad41acf',
-            'marnitto89'   : 'RGAPI-0714096a-3013-4752-8b15-37294c3d29b6',
-            'dh3354'       : 'RGAPI-33ee7574-bb2e-431a-8fc9-4e76a792980d',
-            'dh33543354'   : 'RGAPI-464e023e-40d1-4033-9c84-c845bb8780c2',
-            'resberg13'    : 'RGAPI-dfc10fbf-271c-4c7e-b22a-8d6da374105b',
-            'jyy3151'      : 'RGAPI-66740060-5c24-47fc-9a03-da4d5639d271',
-            'archve9307'   : 'RGAPI-09c2433e-f0c0-4849-ac4e-80eccb35fb8d',
-            'tipho123'     : 'RGAPI-6c698b4c-caa0-4017-9f25-0eaa3b1692fa',
-            'tipho1234'    : 'RGAPI-5b9610d5-998d-4e1f-b20f-dcc1e5f6cf95',
-            'tipho112'     : 'RGAPI-798ff1e2-ab62-44c4-9d67-db911580a8f0',
-            'tipho26'      : 'RGAPI-9c0731b4-0ef7-4bee-bf18-a99496e808b6',
-            'jskim9310'    : 'RGAPI-44d25342-ee50-42a4-891b-4aeafbc4d831',
-            'rlatkddlf8'   : 'RGAPI-45a32929-f18d-4d87-9121-a582323ed35d',
-            'ldh123a'      : 'RGAPI-1bf745d7-f2d5-4362-8495-84a523e42005',
-            'meelmyeon'    : 'RGAPI-bc6bb3bf-e998-4c6f-a1b7-66b575f9bf13',
-            'dbseorms2446' : 'RGAPI-868614d6-2348-4c75-9557-94cd6afaaa23',
-            'dayever22'    : 'RGAPI-cef9564e-34a3-4565-be62-ead720449fc8',
-            'bluozlz'      : 'RGAPI-02f25c80-9dac-467f-be49-9496cdd36150',
-            'kokoma1622'   : 'RGAPI-0259a7aa-cc61-4d88-8c00-e0fc61ed1f9f'}
-
-api_name = ['apikokoma', 'api2kokoma', 'api3kokoma', 'api4kokokma', 'youngcheol94', 'kjwk9900', 'dhyung2002', 'skdlsco2',
-            'noraworld', 'tyaaan93', 'marnitto89', 'dh3354', 'dh33543354', 'resberg13', 'jyy3151', 'archve9307',
-            'tipho123', 'tipho1234', 'tipho112', 'tipho26', 'jskim9310', 'rlatkddlf8', 'ldh123a', 'meelmyeon', 
-            'dbseorms2446', 'dayever22', 'bluozlz', 'kokoma1622']
-
-api_mine = 'RGAPI-0259a7aa-cc61-4d88-8c00-e0fc61ed1f9f'
+api_list = []
+api_dict = {}
+api_name = []
+api_mine = ''
 
 
 async def quest_df_async(url):
@@ -142,15 +82,13 @@ def request_url(url):
 async def main():
 
     summoner_dict = {}
-    
     for i in range(26):
         summoner_dict[api_name[i]] = pd.read_csv('../summoner_api/'+api_name[i]+'.csv')
     
     summonername_df = summoner_dict[api_name[0]]['summonerName']
     
     
-    engine = create_engine('mysql+pymysql://kokoma:'+'qkr741963'
-                           +'@challenger-match-event.cq82nctrk585.ap-northeast-2.rds.amazonaws.com:3306/match_data',
+    engine = create_engine('mysql+pymysql://%s:%s@%s:%d/%s' % (user, passwd, host, port, db),
                            echo=False)
     conn = engine.connect()
 
