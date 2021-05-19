@@ -71,7 +71,7 @@ def main():
     
     
     
-    engine = create_engine('mysql+pymysql://%s:%s@%s.ap-northeast-2.rds.amazonaws.com:%d/%s' % (user, passwd, server, port, db),
+    engine = create_engine('mysql+pymysql://%s:%s@%s:%d/%s' % (user, passwd, server, port, db),
                            echo=False)
     conn = engine.connect()
     
