@@ -15,47 +15,8 @@ from get_event import events
 from get_minute import minute
 
 
-api_list = ['RGAPI-30f0620f-6d1c-4f1f-90da-9217d29fd92b',    # apikokoma
-            'RGAPI-14470e2a-bdbb-400a-8bc0-e98689feb932',    # api2kokoma
-            'RGAPI-de18ee48-c1ad-456e-b939-b471d31df3fc',    # api3kokoma
-            'RGAPI-00ff19dd-588c-4e1d-8b28-cf73f4454015',    # api4kokokma
-            'RGAPI-7f80874b-9bfe-4056-b0e6-db08855b7296',    # youngcheol94
-            'RGAPI-bb5d3382-912f-42fa-90f9-9dd0c9bac7fb',    # kjwk9900
-            'RGAPI-12abcff1-d19e-430f-8931-8d04094ba4e5',    # dhyung2002
-            'RGAPI-09eb3829-4e8d-4532-80c2-e900cf811097',    # skdlsco2
-            'RGAPI-6a3bba17-d6d0-4ea8-8616-32046304f5c2',    # noraworld
-            'RGAPI-a357f6f1-4c3f-49ec-b94f-a65b7095c910',    # tyaaan93
-            'RGAPI-b9cc4b84-2d97-472e-9b6b-740f889f3815',    # marnitto89
-            'RGAPI-4b7fe270-2f6e-47bc-9705-d489b8c06d59',    # dh3354
-            'RGAPI-4b9ae52d-6283-4c5c-8274-23e4045f4257',    # dh33543354
-            'RGAPI-f8e2d012-ecfa-45aa-ad3a-968486cce714',    # resberg13
-            'RGAPI-b61e833a-7060-41d7-9b02-ece9a78f295d',    # jyy3151
-            'RGAPI-993d7412-b3a8-4984-a7c0-113cdd1e08ea',    # archve9307
-            'RGAPI-d4a33407-666d-4f18-bd46-1a5b87f3cda8',    # tipho123
-            'RGAPI-02b7d36c-4f75-4c9a-a472-36c62cbbf485',    # tipho1234
-            'RGAPI-0378a785-f696-4317-b117-fecc5b9e4207',    # tipho112
-            'RGAPI-8b37330f-be5a-469c-8299-ecf8dfc8b6ba',    # tipho26
-            'RGAPI-c75d0157-74f6-454c-b0eb-e3430bd7d574',    # jskim9310
-            'RGAPI-b05e0a02-fa12-4aa7-b110-67e6b1c1c8f1',    # rlatkddlf8
-            'RGAPI-fc83f16e-369e-42d8-a06c-016f4121b5e1',    # ldh123a
-            'RGAPI-bfb8270e-4a5e-48c1-98a5-f27806202c2d',    # meelmyeon
-            'RGAPI-e861a571-091c-40d8-9701-02473426a53a',    # dbseorms2446
-            'RGAPI-683f1897-b517-41eb-a4e5-12c08bb5e1a5',    # dayever22
-            'RGAPI-116fe595-71ff-4a54-a69a-d0a080f55846',    # bluozlz
-            'RGAPI-127d4d24-c898-42ee-820f-ca22998537f8',    # kokoma1622
-            'RGAPI-fb60753e-ffe6-4a3f-b8b0-8f21b87dae9e',    # NHcodna2
-            'RGAPI-d8ae23b9-7916-45c9-8351-790a1a004efa',    # NHcodna4
-            'RGAPI-4ade48e4-569a-4bd4-bb32-f4860e3f0a72',    # nyjwnh
-            'RGAPI-37266010-e1d9-4082-b3b9-fce52def1814',    # dbwlssoghks
-            'RGAPI-5c9afe63-dac6-4ce2-aac9-f12b8bf1c879',    # onhnyj
-            'RGAPI-0575cba4-6953-4eb2-a8cd-1b909230bba7']    # GodDrinkTeJAVA
-
-api_name = ['apikokoma', 'api2kokoma', 'api3kokoma', 'api4kokokma', 'youngcheol94', 'kjwk9900', 'dhyung2002', 'skdlsco2',
-            'noraworld', 'tyaaan93', 'marnitto89', 'dh3354', 'dh33543354', 'resberg13', 'jyy3151', 'archve9307',
-            'tipho123', 'tipho1234', 'tipho112', 'tipho26', 'jskim9310', 'rlatkddlf8', 'ldh123a', 'meelmyeon', 
-            'dbseorms2446', 'dayever22', 'bluozlz', 'kokoma1622', 'NHcodna2', 'NHcodna4', 'nyjwnh', 'dbwlssoghks',
-            'onhnyj', 'GodDrinkTeJAVA']
-
+api_list = []
+api_name = []
 api_dict = dict(zip(api_name, api_list))
 
 
@@ -123,17 +84,16 @@ def request_url(url):
 
 
 async def main():
-    summoner_name = pd.read_csv('../summoner_api/apikokoma.csv')['summonerName']
-    summoner_series = pd.read_csv('../summoner_api/apikokoma.csv')['accountId']
+    summoner_name = pd.read_csv('../summoner_api/')['summonerName']
+    summoner_series = pd.read_csv('../summoner_api/')['accountId']
     
     
     engine_dict, conn_dict = {}, {}
     already_in = []
     
     for i in range(1, 26):
-        engine_dict[i] = create_engine('mysql+pymysql://kokoma:qkr741963'
-                               +'@challenger-match-event.cq82nctrk585.ap-northeast-2.rds.amazonaws.com:3306/v10_%02d' % i
-                               +'?charset=utf8',
+        db = 'v10_%02d' % i
+        engine_dict[i] = create_engine('mysql+pymysql://%s:%s@%s:%d/%s' % (user, passwd, host, port, db) +'?charset=utf8',
                                echo=False)
         conn_dict[i] = engine_dict[i].connect()
         
