@@ -9,40 +9,8 @@ import numpy as np
 import time
 
 
-api_list = ['RGAPI-c1efc91d-54e9-47b7-9034-ca245fde730a',
-            'RGAPI-52fb77af-2b17-4396-9a16-74deafe3bd69',
-            'RGAPI-bbf0510b-8583-4d62-8b76-7e4342044f1c',
-            'RGAPI-37558a4e-f0f2-4e6e-a851-ff0f7584ec90',
-            'RGAPI-05434be6-979e-453f-9b7b-7f089b16d226',
-            'RGAPI-36280109-2559-4256-a634-11478300544c',
-            'RGAPI-f0cdee50-5c8e-43bf-b2d1-b04efa46515e',
-            'RGAPI-0605ec83-ebf5-4cbf-ac6e-327af5bcd678',
-            'RGAPI-e0a608b9-c004-4ea2-b706-47dba0129e38',
-            'RGAPI-c7ec745c-fe72-42fc-bc68-8debf5d52809',
-            'RGAPI-d8af4e55-f0b4-453f-a538-fefc544e5d7f',
-            'RGAPI-805aa6fc-5b31-4836-9582-47821742c1d5',
-            'RGAPI-4c10a087-ad1a-4ba1-9f44-6611667231f5',
-            'RGAPI-c3773ecb-ade0-4fea-8337-aab17fa331b1',
-            'RGAPI-b814dc8d-2553-471d-bd32-dcfc51b50353']
-#            'RGAPI-d0adf80f-be56-400e-9fd7-890bbf4bb7d6']
-
-
-api_dict = {'apikokoma':    'RGAPI-c1efc91d-54e9-47b7-9034-ca245fde730a',
-            'api2kokoma':   'RGAPI-52fb77af-2b17-4396-9a16-74deafe3bd69',
-            'api3kokoma':   'RGAPI-bbf0510b-8583-4d62-8b76-7e4342044f1c',
-            'api4kokoma':   'RGAPI-37558a4e-f0f2-4e6e-a851-ff0f7584ec90',
-            'youngcheol94': 'RGAPI-05434be6-979e-453f-9b7b-7f089b16d226',
-            'kjwk9900':     'RGAPI-36280109-2559-4256-a634-11478300544c',
-            'dhyung2002':   'RGAPI-f0cdee50-5c8e-43bf-b2d1-b04efa46515e',
-            'skdlsco2':     'RGAPI-0605ec83-ebf5-4cbf-ac6e-327af5bcd678',
-            'noraworld':    'RGAPI-e0a608b9-c004-4ea2-b706-47dba0129e38',
-            'tyaaan93':     'RGAPI-c7ec745c-fe72-42fc-bc68-8debf5d52809',
-            'marnitto89':   'RGAPI-d8af4e55-f0b4-453f-a538-fefc544e5d7f',
-            'dh3354':       'RGAPI-805aa6fc-5b31-4836-9582-47821742c1d5',
-            'dh33543354':   'RGAPI-4c10a087-ad1a-4ba1-9f44-6611667231f5',
-            'resberg13':    'RGAPI-c3773ecb-ade0-4fea-8337-aab17fa331b1',
-            'jyy3151':      'RGAPI-b814dc8d-2553-471d-bd32-dcfc51b50353'}
-#            'archve9307': 'RGAPI-d0adf80f-be56-400e-9fd7-890bbf4bb7d6}
+api_list = []
+api_dict = {}
 
 
 
@@ -60,12 +28,11 @@ def request_url(url):
 
 
 def main():
-    engine = create_engine('mysql+pymysql://kokoma:'+'qkr741963'
-                           +'@challenger-match-event.cq82nctrk585.ap-northeast-2.rds.amazonaws.com:3306/matches',
+    engine = create_engine('mysql+pymysql://%s:%s@%s.ap-northeast-2.rds.amazonaws.com:%d/%s' % (user, passwd, server, port, db),
                            echo=False)
     conn = engine.connect()
 
-    api_key = 'RGAPI-8c43a3cd-c38f-4aa5-8846-4cda990f653b'
+    api_key = ''
 
     tier_to_point = {'IRON':0, 'BRONZE':4, 'SILVER':8, 'GOLD':12, 'PLATINUM':16, 'DIAMOND':20, 'MASTER':23, 'GRANDMASTER':25, 'CHALLENGER':27}
     rank_to_point = {'IV':0, 'III':1, 'II':2, 'I':3}
