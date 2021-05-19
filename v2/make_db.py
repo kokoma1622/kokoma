@@ -11,10 +11,10 @@ import time
 
 
 test_db = pymysql.connect(
-    user='kokoma', 
-    passwd='qkr741963', 
-    host='challenger-match-event.cq82nctrk585.ap-northeast-2.rds.amazonaws.com', 
-    db='match_data'
+    user='', 
+    passwd='', 
+    host='', 
+    db=''
 )
 
 curs = test_db.cursor(pymysql.cursors.DictCursor)
