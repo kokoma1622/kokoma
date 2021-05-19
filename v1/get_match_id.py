@@ -10,22 +10,7 @@ import numpy as np
 import time
 
 
-api_list = ['RGAPI-c9126bf7-248f-4a5d-af46-8ea737ac062f',
-            'RGAPI-b4259357-78f9-442e-92ba-b83b04e292bb',
-            'RGAPI-ccd8711d-00d9-45f3-ad51-ffb5c3cbb616',
-            'RGAPI-a2e66bbc-5725-434c-b12f-1ec7058f667c',
-            'RGAPI-e936e47f-e772-4b2f-a115-2d9e9b130671',
-            'RGAPI-5fc57085-ee27-4ee8-98b2-98a68e3bfad4',
-            'RGAPI-28b52999-48fe-4c0b-9447-fa823d38bb0a',
-            'RGAPI-58a29c4c-cb69-4dce-bfdc-0d483d16ddf9',
-            'RGAPI-310502c0-110a-493a-bd32-0e03b0bfd7f7',
-            'RGAPI-931b3622-d0a7-48e1-9533-0bf3df5201d6',
-            'RGAPI-053a1309-e128-4f14-954c-193259bad771',
-            'RGAPI-8b5386e7-70e8-4ff2-b925-63401c7ea72d',
-            'RGAPI-3093865b-393e-464f-a36e-4f8c08099552',
-            'RGAPI-077b9a63-170b-4d69-b7a1-2a0a0fea8462',
-            'RGAPI-9b463e00-bb76-4248-ba3a-473e50bbad9d',
-            'RGAPI-ab0190c8-ba87-48d1-8fa1-7ccd6eab2f54']
+api_list = []
 
 
 
