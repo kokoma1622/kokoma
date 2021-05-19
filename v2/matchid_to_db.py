@@ -11,42 +11,9 @@ from get_team import team
 from get_event import events
 
 
-api_list = ['RGAPI-610980a2-bb8b-4185-a962-62c7b9ad8aed',    # apikokoma
-            'RGAPI-82e7a5c2-1864-41e5-9c11-223551a677db',    # api2kokoma
-            'RGAPI-e7e59cc9-868b-4dbb-9935-641782349cf0',    # api3kokoma
-            'RGAPI-20bc0b1c-ba3e-4e44-9875-b4dd4f452e93',    # api4kokoma
-            'RGAPI-611405f0-d542-46b6-9e79-05a25628d7c1',    # youngcheol94
-            'RGAPI-02fcfc04-200e-4447-89f5-dd721078f455',    # kjwk9900
-            'RGAPI-b339aa3d-0daf-4e91-ab98-48a1ad7e8c67',    # dhyung2002
-            'RGAPI-03a61882-c938-4f2f-8f91-5ac6b17fb762',    # skdlsco2
-            'RGAPI-58563741-48d7-473f-a78a-667ff499afc9',    # noraworld
-            'RGAPI-4f69a3e5-fb7f-4e28-bedc-1a3e0a78dc47',    # tyaaan93
-            'RGAPI-03ffa5a9-5d13-46fd-a6c6-dc845cfa1f96',    # marnitto89
-            'RGAPI-fe9c32d0-a76e-487d-b450-616295b9ff51',    # dh3354
-            'RGAPI-4013dc50-7b14-44be-8638-e85460c1231f',    # dh33543354
-            'RGAPI-d405d601-5596-4c7d-9520-45c7d23d7bed',    # resberg13
-            'RGAPI-806c06e6-30a4-4416-8e7f-1eecfe9cf549',    # jyy3151
-            'RGAPI-af1e81b2-9a2b-4195-b104-de0e8e001220']    # archve9307
-
-api_dict = {'apikokoma':    'RGAPI-610980a2-bb8b-4185-a962-62c7b9ad8aed',
-            'api2kokoma':   'RGAPI-82e7a5c2-1864-41e5-9c11-223551a677db',
-            'api3kokoma':   'RGAPI-e7e59cc9-868b-4dbb-9935-641782349cf0',
-            'api4kokoma':   'RGAPI-20bc0b1c-ba3e-4e44-9875-b4dd4f452e93',
-            'youngcheol94': 'RGAPI-611405f0-d542-46b6-9e79-05a25628d7c1',
-            'kjwk9900':     'RGAPI-02fcfc04-200e-4447-89f5-dd721078f455',
-            'dhyung2002':   'RGAPI-b339aa3d-0daf-4e91-ab98-48a1ad7e8c67',
-            'skdlsco2':     'RGAPI-03a61882-c938-4f2f-8f91-5ac6b17fb762',
-            'noraworld':    'RGAPI-58563741-48d7-473f-a78a-667ff499afc9',
-            'tyaaan93':     'RGAPI-4f69a3e5-fb7f-4e28-bedc-1a3e0a78dc47',
-            'marnitto89':   'RGAPI-03ffa5a9-5d13-46fd-a6c6-dc845cfa1f96',
-            'dh3354':       'RGAPI-fe9c32d0-a76e-487d-b450-616295b9ff51',
-            'dh33543354':   'RGAPI-4013dc50-7b14-44be-8638-e85460c1231f',
-            'resberg13':    'RGAPI-d405d601-5596-4c7d-9520-45c7d23d7bed',
-            'jyy3151':      'RGAPI-806c06e6-30a4-4416-8e7f-1eecfe9cf549',
-            'archve9307':   'RGAPI-af1e81b2-9a2b-4195-b104-de0e8e001220'}
-
-api_name = ['apikokoma', 'api2kokoma', 'api3kokoma', 'api4kokoma', 'youngcheol94', 'kjwk9900', 'dhyung2002', 'skdlsco2',
-            'noraworld', 'tyaaan93', 'marnitto89', 'dh3354', 'dh33543354', 'resberg13', 'jyy3151', 'archve9307']
+api_list = []
+api_dict = {}
+api_name = []
 
 
 def request_url(url):
@@ -76,8 +43,7 @@ def main():
     
     
     
-    engine = create_engine('mysql+pymysql://kokoma:'+'qkr741963'
-                           +'@challenger-match-event.cq82nctrk585.ap-northeast-2.rds.amazonaws.com:3306/match_data',
+    engine = create_engine('mysql+pymysql://%s:%s@%s:%d/%s' % (user, passwd, server, port, db),
                            echo=False)
     conn = engine.connect()
     
