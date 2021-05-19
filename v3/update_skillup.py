@@ -35,13 +35,11 @@ async def main():
 
     global ps_engine, es_engine, slot_dict
 
-    ps_engine = create_engine('mysql+pymysql://kokoma:'+'qkr741963'
-                       +'@challenger-match-event.cq82nctrk585.ap-northeast-2.rds.amazonaws.com:3306/personal_summary',
+    ps_engine = create_engine('mysql+pymysql://%s:%s@%s:%d/%s' % (user, passwd, host, port, db),
                        echo=False)
     ps_conn = ps_engine.connect()
     
-    es_engine = create_engine('mysql+pymysql://kokoma:'+'qkr741963'
-                           +'@challenger-match-event.cq82nctrk585.ap-northeast-2.rds.amazonaws.com:3306/event_skillup',
+    es_engine = create_engine('mysql+pymysql://%s:%s@%s:%d/%s' % (user, passwd, host, port, db),
                            echo=False)
     es_conn = es_engine.connect()
     
