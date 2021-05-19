@@ -17,58 +17,9 @@ from make_minute import get_ms
 from make_event import get_events
 
 
-api_mine =  'RGAPI-cbece2af-a4a9-4ff5-94ab-d2f63a47fd9a'     # apikokoma
-api_list = ['RGAPI-24b69444-85c1-4130-905d-078c8fdf76e6',    # api2kokoma
-            'RGAPI-c6f6c819-98ad-40c2-bf1e-cc2769a6fa96',    # api3kokoma
-            'RGAPI-88812400-8b2d-4395-9c2a-6e0604a5ddbe',    # api4kokokma
-            'RGAPI-7ca86ed0-1748-47c8-9b24-ff865878400e',    # apikokoma5
-            'RGAPI-29f84893-5ef4-4599-ab05-a872393efc72',    # apikokoma6
-            'RGAPI-c2df71e8-880d-4622-87aa-a626102f5cde',    # apikokoma7
-            'RGAPI-2f2e7426-de20-4ab9-9fa8-f0af7c52099d',    # apikokoma8
-            'RGAPI-2afc0b96-c55e-4a1c-9552-816b2fe45ae3',    # apikokoma9
-            'RGAPI-74ba3c75-b466-4df8-9e8f-c9df663bde14',    # kokomapi1
-            'RGAPI-154d5457-bb38-4f35-a843-e200b3e3920e',    # kokomaapi2
-            'RGAPI-8e9239b9-a785-481c-84ec-91e65f1277b4',    # kokomaapi3
-            'RGAPI-7d5e4b90-1b87-4008-8fab-95ff2f6571e0',    # kokomaapi4
-            'RGAPI-ee5155e7-b2b5-4489-b4e1-d82668388a1b',    # kokomaapi5
-            'RGAPI-da3d7b6c-8667-4bd1-8f20-32353b1afee4',    # youngcheol94
-            'RGAPI-c79a86f3-02c9-4595-b306-9e6c92586a6b',    # kjwk9900
-            'RGAPI-546f8d78-0196-4c18-b747-646a4ef032e2',    # dhyung2002
-            'RGAPI-37e6f4f4-a4a0-45d2-9fb9-ba8b65750c6f',    # skdlsco2
-            'RGAPI-f8f08523-4e26-4afa-a7b3-45fba3904be4',    # noraworld
-            'RGAPI-ce71cb7d-3b41-4265-ac63-fb1f0a8f5455',    # tyaaan93
-            'RGAPI-525056e6-7c53-43a9-abdb-23f1d45609b4',    # marnitto89
-            'RGAPI-bf172af1-f3c0-41a6-b7d5-f9f2f3b70168',    # dh3354
-            'RGAPI-7097e1ea-851d-4c69-908c-aeb6cfccced8',    # dh33543354
-            'RGAPI-a26539c2-a52c-4d95-a0d9-52deb5a9ed19',    # resberg13
-            'RGAPI-3726f593-c8a3-4341-ba6e-e25c9055d4be',    # jyy3151
-            'RGAPI-956a868d-eb9e-4565-9e03-6b8e3d876ed7',    # archve9307
-            'RGAPI-139ca992-e49e-4316-ab50-e19864e42215',    # tipho123
-            'RGAPI-654426f0-caf4-420e-888b-4a02ee0e08c3',    # tipho1234
-            'RGAPI-370a8c70-2047-47e0-99bc-10e1d53b7b45',    # tipho112
-            'RGAPI-cd40c195-7cec-4778-9ac4-eb0e51107964',    # tipho26
-            'RGAPI-2909a7a6-35b7-4629-9c62-efb146cdb606',    # jskim9310
-            'RGAPI-5695b9d8-abce-41d8-8498-39acdb8842ce',    # rlatkddlf8
-            'RGAPI-ca8bf4a5-b0ec-43d0-9730-1ba7712574ca',    # ldh123a
-            'RGAPI-40576dfc-cd81-4820-935a-6c660855cef9',    # meelmyeon
-            'RGAPI-1912ecd4-0dfb-404e-be98-49957564eb85',    # dbseorms2446
-            'RGAPI-857e5c64-85f5-4f45-86ec-269ee0f6dbcf',    # dayever22
-            'RGAPI-4b2b7080-d296-4029-b192-32317ad08a02',    # bluozlz
-            'RGAPI-f8c4939c-d35f-467c-86bd-8c42a826d717',    # kokoma1622
-            'RGAPI-385d2ccb-1786-43d1-98a6-2c3edd7b41fa',    # NHcodna2
-            'RGAPI-a13e1c95-55e9-489b-8ddd-1ec5797f88a6',    # NHcodna4
-            'RGAPI-946ded72-895a-47e1-be9d-9c399c7ef1e5',    # nyjwnh
-            'RGAPI-c94e3523-91e0-4788-b94a-de3042cdbe50',    # dbwlssoghks
-            'RGAPI-9c17691a-ce08-4d09-8b4f-51aa0f9d9a43',    # onhnyj
-            'RGAPI-3610a61e-49d3-4c88-9b14-2ad9aa6e93f6']    # GodDrinkTeJAVA
-
-
-api_name = ['api2kokoma', 'api3kokoma', 'api4kokokma', 'api5kokoma', 'api6kokoma', 'api7kokoma', 'api8kokoma', 'api9kokoma',
-            'kokomapi1', 'kokomaapi2' , 'kokomaapi3', 'kokomaapi4', 'kokomaapi5', 'youngcheol94', 'kjwk9900', 'dhyung2002', 'skdlsco2',
-            'noraworld', 'tyaaan93', 'marnitto89', 'dh3354', 'dh33543354', 'resberg13', 'jyy3151', 'archve9307', 'tipho123', 
-            'tipho1234', 'tipho112', 'tipho26', 'jskim9310', 'rlatkddlf8', 'ldh123a', 'meelmyeon', 'dbseorms2446', 'dayever22', 
-            'bluozlz', 'kokoma1622', 'NHcodna2', 'NHcodna4', 'nyjwnh', 'dbwlssoghks', 'onhnyj', 'GodDrinkTeJAVA']
-
+api_mine =  ''
+api_list = []
+api_name = []
 api_dict = dict(zip(api_name, api_list))
 
 
@@ -141,16 +92,16 @@ async def main():
     
     already_in = []
     engine = {}
-    uri1 = 'postgresql+psycopg2://kokoma:qkr741963@lol-hightier-data.cnvgsj5mbcjf.us-east-1.rds.amazonaws.com:5432/v10_'
-    uri2 = 'postgresql+psycopg2://kokoma:qkr741963@lol-hightier-data.cyt1o4h42mbw.us-east-1.rds.amazonaws.com:5432/v10_'
-    '''
+    uri1 = 'postgresql+psycopg2://%s:%s@%s:%d/%s' % (user, passwd, host1, port, db)
+    uri2 = 'postgresql+psycopg2://%s:%s@%s:%d/%s' % (user, passwd, host2, port, db)
+    
     for i in range(1, 26):
         uri = uri1 + '%02d'%i if i < 13 else uri2 + '%02d'%i
         engine[i] = create_engine(uri,echo=False)
         
         already_in_tuple = engine[i].execute('SELECT gameid FROM game_summary').fetchall()
         already_in += [gameId_tuple[0] for gameId_tuple in already_in_tuple]
-    '''    
+     
     print('%d games already in!' % len(already_in))
     
     iter_size = len(api_name)
