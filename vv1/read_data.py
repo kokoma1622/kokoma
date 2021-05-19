@@ -14,26 +14,7 @@ from get_match_data import get_match
 
 
 
-api_list = [
-    '', '', '',
-    '', '', '',
-    '', '', '',
-    '', '', '',
-    '', '', '',
-    '', '', '',
-    '', '', '',
-    '', '', '',
-    '', '', '',
-    '', '', '',
-    '', '', '',
-    '', '', '',
-    '', '', '',
-    '', '', '',
-    '', '', '',
-    '', '', '', 
-    '', '', '',
-    ''
-    ]
+api_list = []
 
 
 
@@ -170,11 +151,11 @@ async def main():
 
     engine = []
     
-    server = "kokoma.database.windows.net"
-    database = "v11_01"
-    username = "kokoma"
-    password = "qkr741*963"
-    driver = '{ODBC Driver 17 for SQL Server}'
+    server = ""
+    database = ""
+    username = ""
+    password = ""
+    driver = ''
 
     for i in range(5):
         odbc_str = 'DRIVER='+driver+';SERVER='+server+';PORT=1433;UID='+username+';DATABASE='+ database+DB_name[i] + ';PWD='+ password
