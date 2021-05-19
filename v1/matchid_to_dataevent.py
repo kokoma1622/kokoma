@@ -9,40 +9,8 @@ import numpy as np
 import time
 
 
-api_list = ['RGAPI-86354e18-e749-4a67-8031-305c6fd460bd',    # apikokoma
-            'RGAPI-c5a0e61c-e8bb-4e6b-b348-a94bbdb7b17d',    # api2kokoma
-            'RGAPI-66c7af19-eca1-44ea-a889-7748f071c13a',    # api3kokoma
-            'RGAPI-f0f55dff-24a2-488c-8b30-fb9ef4f9c6fc',    # api4kokoma
-            'RGAPI-6fff41e5-0230-4b84-9257-a95cb0a40654',    # youngcheol94
-            'RGAPI-994a299d-5308-44ad-a516-65425ffebeab',    # kjwk9900
-            'RGAPI-f9a708b1-d21f-464e-acf7-c62fc437f3d9',    # dhyung2002
-            'RGAPI-846d5e61-4d03-4a54-a19a-d4d99a098484',    # skdlsco2
-            'RGAPI-2e40b783-c31e-4d18-8938-b6ec3fb86570',    # noraworld
-            'RGAPI-b4ff5f34-0ede-4999-9687-dcf32c63745f',    # tyaaan93
-            'RGAPI-1eecb141-78ad-4341-85b0-d45a6bcc2e97',    # marnitto89
-            'RGAPI-025dabaf-bd92-4af8-820d-54186323bb43',    # dh3354
-            'RGAPI-e7e846a5-f708-42da-96b7-09d63dfde085',    # dh33543354
-            'RGAPI-bad04a6f-2e7c-4a70-b13a-73f11c7109fc',    # resberg13
-            'RGAPI-ab79e713-4bf9-4194-8b3c-63da7bd7c93f',    # jyy3151
-            'RGAPI-9889d6a3-5047-475e-94c3-5938f32d70e1']    # archve9307
-
-
-api_dict = {'apikokoma':    'RGAPI-86354e18-e749-4a67-8031-305c6fd460bd',
-            'api2kokoma':   'RGAPI-c5a0e61c-e8bb-4e6b-b348-a94bbdb7b17d',
-            'api3kokoma':   'RGAPI-66c7af19-eca1-44ea-a889-7748f071c13a',
-            'api4kokoma':   'RGAPI-f0f55dff-24a2-488c-8b30-fb9ef4f9c6fc',
-            'youngcheol94': 'RGAPI-6fff41e5-0230-4b84-9257-a95cb0a40654',
-            'kjwk9900':     'RGAPI-994a299d-5308-44ad-a516-65425ffebeab',
-            'dhyung2002':   'RGAPI-f9a708b1-d21f-464e-acf7-c62fc437f3d9',
-            'skdlsco2':     'RGAPI-846d5e61-4d03-4a54-a19a-d4d99a098484',
-            'noraworld':    'RGAPI-2e40b783-c31e-4d18-8938-b6ec3fb86570',
-            'tyaaan93':     'RGAPI-b4ff5f34-0ede-4999-9687-dcf32c63745f',
-            'marnitto89':   'RGAPI-1eecb141-78ad-4341-85b0-d45a6bcc2e97',
-            'dh3354':       'RGAPI-025dabaf-bd92-4af8-820d-54186323bb43',
-            'dh33543354':   'RGAPI-e7e846a5-f708-42da-96b7-09d63dfde085',
-            'resberg13':    'RGAPI-bad04a6f-2e7c-4a70-b13a-73f11c7109fc',
-            'jyy3151':      'RGAPI-ab79e713-4bf9-4194-8b3c-63da7bd7c93f',
-            'archve9307':   'RGAPI-9889d6a3-5047-475e-94c3-5938f32d70e1'}
+api_list = []
+api_dict = {}
 
 
 
@@ -63,7 +31,7 @@ def request_url(url):
 
 def main():
 
-    api_key = 'RGAPI-8c43a3cd-c38f-4aa5-8846-4cda990f653b'
+    api_key = ''
 
     drop_list = ['largestKillingSpree', 'largestMultiKill', 'killingSprees', 'longestTimeSpentLiving', 'doubleKills', 'tripleKills', 
                  'quadraKills', 'pentaKills', 'unrealKills', 'totalDamageDealt', 'magicDamageDealt', 'physicalDamageDealt', 
