@@ -61,8 +61,7 @@ def main():
 
     '''
     
-    api_name = ['apikokoma', 'api2kokoma', 'api3kokoma', 'api4kokoma', 'youngcheol94', 'kjwk9900', 'dhyung2002', 'skdlsco2',
-                'noraworld', 'tyaaan93', 'marnitto89', 'dh3354', 'dh33543354', 'resberg13', 'jyy3151', 'archve9307']
+    api_name = []
     summoner_dict = {}
     
     for api in api_name:
@@ -72,8 +71,7 @@ def main():
     
     
     
-    engine = create_engine('mysql+pymysql://kokoma:'+'qkr741963'
-                           +'@challenger-match-event.cq82nctrk585.ap-northeast-2.rds.amazonaws.com:3306/match_data',
+    engine = create_engine('mysql+pymysql://%s:%s@%s.ap-northeast-2.rds.amazonaws.com:%d/%s' % (user, passwd, server, port, db),
                            echo=False)
     conn = engine.connect()
     
