@@ -30,12 +30,11 @@ def request_url(url_front):
 
 
 def main():
-    engine = create_engine('mysql+pymysql://kokoma:'+'qkr741963'
-                           +'@challenger-match-event.cq82nctrk585.ap-northeast-2.rds.amazonaws.com:3306/matches',
+    engine = create_engine('mysql+pymysql://%s:%s@%s.ap-northeast-2.rds.amazonaws.com:%d/%s' % (user, passwd, server, port, db),
                            echo=False)
     conn = engine.connect()
 
-    api_key = 'RGAPI-fc2c0ad1-27cf-4ce4-8867-467593774ada'
+    api_key = ''
 
 
     tier_to_point = {'IRON':0, 'BRONZE':4, 'SILVER':8, 'GOLD':12, 'PLATINUM':16, 'DIAMOND':20, 'MASTER':23, 'GRANDMASTER':25, 'CHALLENGER':27}
